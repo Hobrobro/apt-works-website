@@ -2,40 +2,27 @@ backend:
   name: github
   repo: Hobrobro/apt-works-website
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
-  site_domain: apt-works-cms.netlify.app
+  auth_type: implicit
+  app_id: Ov23li0OhMty0elmwNfd
 
-media_folder: images/blog
-public_folder: /images/blog
-
-locale: zh_Hant
+publish_mode: editorial_workflow
+media_folder: "blog/images"
+public_folder: "/blog/images"
 
 collections:
-  - name: posts
-    label: 文章
-    label_singular: 文章
-    folder: _posts
+  - name: "blog"
+    label: "部落格文章"
+    folder: "blog/posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - label: 標題
-        name: title
-        widget: string
-      - label: 發布日期
-        name: date
-        widget: datetime
-        format: "YYYY-MM-DD"
-        date_format: "YYYY-MM-DD"
-        time_format: false
-      - label: 摘要
-        name: excerpt
-        widget: text
-        hint: 顯示在文章列表頁的簡短說明（100字以內）
-      - label: 標籤
-        name: tags
-        widget: select
-        multiple: true
+      - {label: "標題", name: "title", widget: "string"}
+      - {label: "發布日期", name: "date", widget: "datetime"}
+      - {label: "摘要", name: "excerpt", widget: "text"}
+      - {label: "封面圖片", name: "thumbnail", widget: "image", required: false}
+      - label: "分類"
+        name: "category"
+        widget: "select"
         options:
           - 製造業
           - 流程優化
@@ -44,6 +31,4 @@ collections:
           - 知識管理
           - 數位轉型
           - 案例分享
-      - label: 內文
-        name: body
-        widget: markdown
+      - {label: "內文", name: "body", widget: "markdown"}
