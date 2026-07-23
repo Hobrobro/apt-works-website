@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>觀點 · 本器見立所 Apt. Works</title>
+<meta name="description" content="本器見立所的業務觀察與洞察——關於企業流程、系統規劃與 AI 導入的真實記錄。" />
+<meta property="og:title" content="觀點 · 本器見立所 Apt. Works" />
+<meta property="og:description" content="關於企業流程、系統規劃與 AI 導入的真實觀察與洞察。" />
+<meta property="og:image" content="https://apt-works.vercel.app/images/og_default.jpg" />
+<link rel="canonical" href="https://apt-works.vercel.app/blog/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='5' width='7' height='5.5' rx='1.5' fill='none' stroke='%233C5BEE' stroke-width='2.6'/%3E%3Crect x='20' y='5' width='7' height='5.5' rx='1.5' fill='none' stroke='%233C5BEE' stroke-width='2.6'/%3E%3Crect x='5' y='21.5' width='7' height='5.5' rx='1.5' fill='none' stroke='%233C5BEE' stroke-width='2.6'/%3E%3Crect x='20' y='21.5' width='7' height='5.5' rx='1.5' fill='none' stroke='%233C5BEE' stroke-width='2.6'/%3E%3Cpath d='M7 20 L16 11 L25 20' fill='none' stroke='%231D339C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@350;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/style.css?v=10" />
+<style>
+  /* ── 部落格專用樣式 ── */
+  .blog-hero {
+    padding: clamp(7rem, 14vw, 10rem) clamp(1.2rem, 4vw, 3.2rem) clamp(3rem, 6vw, 5rem);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .blog-hero__kicker {
+    display: flex; align-items: center; gap: .9rem;
+    font-family: var(--mono); font-size: .8rem; letter-spacing: .22em;
+    color: var(--muted); margin-bottom: 1.4rem;
+  }
+  .blog-hero__title {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .blog-hero__sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+  }
+
+  /* ── 文章列表 ── */
+  .blog-list {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 clamp(1.2rem, 4vw, 3.2rem) clamp(4rem, 8vw, 7rem);
+  }
+  .blog-list__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    background: rgba(255,255,255,.72);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out), border-color .3s;
+    backdrop-filter: blur(8px);
+  }
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -12px rgba(60, 91, 238, .15);
+    border-color: var(--blue);
+  }
+  .post-card__meta {
+    display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
+    color: var(--muted);
+  }
+  .post-card__tag {
+    padding: .15rem .6rem;
+    background: var(--ice);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    color: var(--blue);
+    font-size: .68rem;
+    letter-spacing: .1em;
+  }
+  .post-card__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .post-card__excerpt {
+    font-size: .9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .post-card__read {
+    font-family: var(--mono); font-size: .75rem; letter-spacing: .12em;
+    color: var(--blue); display: flex; align-items: center; gap: .4rem;
+    margin-top: .4rem;
+  }
+
+  /* ── 空狀態 ── */
+  .blog-empty {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--muted);
+  }
+  .blog-empty__icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 1.5rem;
+    opacity: .3;
+  }
+  .blog-empty__title {
+    font-size: 1.1rem; font-weight: 600; color: var(--ink);
+    margin-bottom: .5rem;
+  }
+  .blog-empty__sub { font-size: .9rem; }
+
+  /* ── 標籤篩選 ── */
+  .blog-filter {
+    display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    padding: .35rem .9rem;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: transparent;
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .1em;
+    color: var(--muted); cursor: pointer;
+    transition: all .2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--blue); border-color: var(--blue);
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────── NAV ─────────── -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="本器見立所 Apt. Works">
+    <img class="nav__logo" src="../images/logo.svg" alt="本器見立所 Apt. Works" />
+  </a>
+  <nav class="nav__links">
+    <a href="/#services">服務內容</a>
+    <a href="/#needs">解決方案</a>
+    <a href="/#method">見立て方法</a>
+    <a href="/#cases">案例研究</a>
+    <a href="/blog/" aria-current="page">觀點</a>
+    <a href="/#contact">關於我們</a>
+  </nav>
+  <a class="btn btn--primary nav__cta" href="/#contact">預約診斷 <span class="btn__arrow">→</span></a>
+  <button class="nav__burger" id="navBurger" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ─────────── 手機選單 ─────────── -->
+<nav class="navmenu" id="navMenu" aria-hidden="true">
+  <a href="/#services">服務內容</a>
+  <a href="/#needs">解決方案</a>
+  <a href="/#method">見立て方法</a>
+  <a href="/#cases">案例研究</a>
+  <a href="/blog/">觀點</a>
+  <a href="/#contact">關於我們</a>
+  <a class="btn btn--primary navmenu__cta" href="/#contact">預約診斷 <span class="btn__arrow">→</span></a>
+</nav>
+
+<main>
+
+  <div class="blog-hero">
+    <p class="blog-hero__kicker">
+      <span class="kicker__no">觀點</span>INSIGHTS
+    </p>
+    <h1 class="blog-hero__title">我們的觀察，<br>關於系統與業務的真實記錄。</h1>
+    <p class="blog-hero__sub">不是教科書，是我們在每個案子裡看到的真實現象——以及我們怎麼想這些事。</p>
+  </div>
+
+  <div class="blog-list">
+
+    <!-- 標籤篩選 -->
+    <div class="blog-filter" id="blogFilter">
+      <button class="filter-btn active" data-tag="all">全部</button>
+      <button class="filter-btn" data-tag="製造業">製造業</button>
+      <button class="filter-btn" data-tag="流程優化">流程優化</button>
+      <button class="filter-btn" data-tag="AI導入">AI 導入</button>
+      <button class="filter-btn" data-tag="系統規劃">系統規劃</button>
+      <button class="filter-btn" data-tag="知識管理">知識管理</button>
+      <button class="filter-btn" data-tag="數位轉型">數位轉型</button>
+    </div>
+
+    <!-- 文章列表（由 JS 動態渲染） -->
+    <div class="blog-list__grid" id="postGrid">
+      <div class="blog-empty">
+        <svg class="blog-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 6 C 9 4, 5.5 4, 3.5 5 v13 c2 -1 5.5 -1 8.5 1 c3 -2 6.5 -2 8.5 -1 V5 c-2 -1 -5.5 -1 -8.5 1 z M12 6 v13"/>
+        </svg>
+        <p class="blog-empty__title">文章即將上線</p>
+        <p class="blog-empty__sub">第一篇觀點文章正在撰寫中，敬請期待。</p>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <img class="footer__logo" src="../images/logo.svg" alt="本器見立所 Apt. Works" />
+    <p class="footer__copy mono">© 2026 Apt. Works 本器見立所<br class="br-mobile"> Powered by <a href="https://ingsist.com" target="_blank" rel="noopener">Ingsist Creative</a></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('nav--scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Burger menu
+  const burger = document.getElementById('navBurger');
+  const menu = document.getElementById('navMenu');
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', !open);
+    menu.setAttribute('aria-hidden', open);
+    menu.classList.toggle('navmenu--open', !open);
+    burger.classList.toggle('nav__burger--open', !open);
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('navmenu--open');
+      burger.classList.remove('nav__burger--open');
+    });
+  });
+
+  // 載入文章（從 _posts 資料夾讀取，透過 posts.json 索引）
+  async function loadPosts() {
+    try {
+      const res = await fetch('/posts.json');
+      if (!res.ok) return; // 還沒有文章時靜默處理
+      const posts = await res.json();
+      if (!posts || posts.length === 0) return;
+      renderPosts(posts, 'all');
+      setupFilter(posts);
+    } catch (e) {
+      // 還沒有文章，保留空狀態
+    }
+  }
+
+  function renderPosts(posts, activeTag) {
+    const grid = document.getElementById('postGrid');
+    const filtered = activeTag === 'all'
+      ? posts
+      : posts.filter(p => p.tags && p.tags.includes(activeTag));
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="blog-empty">
+        <p class="blog-empty__title">這個分類還沒有文章</p>
+        <p class="blog-empty__sub">請選擇其他標籤，或查看全部文章。</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(post => `
+      <a class="post-card" href="/blog/${post.slug}/">
+        <div class="post-card__meta">
+          <span>${post.date}</span>
+          ${post.tags ? post.tags.map(t => `<span class="post-card__tag">${t}</span>`).join('') : ''}
+        </div>
+        <h2 class="post-card__title">${post.title}</h2>
+        <p class="post-card__excerpt">${post.excerpt || ''}</p>
+        <span class="post-card__read">閱讀全文 →</span>
+      </a>
+    `).join('');
+  }
+
+  function setupFilter(posts) {
+    document.getElementById('blogFilter').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderPosts(posts, btn.dataset.tag);
+    });
+  }
+
+  loadPosts();
+</script>
+</body>
+</html>
