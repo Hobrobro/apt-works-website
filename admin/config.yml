@@ -2,9 +2,7 @@ backend:
   name: github
   repo: Hobrobro/apt-works-website
   branch: main
-  auth_type: implicit
-  app_id: Ov23li0OhMty0elmwNfd
-
+  base_url: https://apt-works-cms-oauth.vercel.app
 publish_mode: editorial_workflow
 media_folder: "blog/images"
 public_folder: "/blog/images"
