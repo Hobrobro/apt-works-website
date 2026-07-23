@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: Hobrobro/apt-works-website
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+  site_domain: apt-works-cms.netlify.app
+
+media_folder: images/blog
+public_folder: /images/blog
+
+locale: zh_Hant
+
+collections:
+  - name: posts
+    label: 文章
+    label_singular: 文章
+    folder: _posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: 標題
+        name: title
+        widget: string
+      - label: 發布日期
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+      - label: 摘要
+        name: excerpt
+        widget: text
+        hint: 顯示在文章列表頁的簡短說明（100字以內）
+      - label: 標籤
+        name: tags
+        widget: select
+        multiple: true
+        options:
+          - 製造業
+          - 流程優化
+          - AI導入
+          - 系統規劃
+          - 知識管理
+          - 數位轉型
+          - 案例分享
+      - label: 內文
+        name: body
+        widget: markdown
