@@ -1,1 +1,7 @@
 .vercel
+node_modules
+
+# 由 scripts/build-blog.js 在每次部署時自動產生，不需要進版控
+/posts.json
+/blog/*/
+!/blog/posts/
