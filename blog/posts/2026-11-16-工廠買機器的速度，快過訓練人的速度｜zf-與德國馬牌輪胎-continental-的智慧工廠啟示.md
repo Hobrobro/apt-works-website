@@ -2,6 +2,7 @@
 title: 工廠買機器的速度，快過訓練人的速度｜ZF 與德國馬牌輪胎 Continental 的智慧工廠啟示
 date: 2026-11-16T14:36:00.000+08:00
 excerpt: 智慧工廠缺的不只是新工具。從德國汽車零組件大廠 ZF 與德國馬牌輪胎 Continental 的做法，看企業導入數位工具前，該先確認哪三件事。
+thumbnail: /blog/images/smart-factory-cover.jpg
 category: 製造業
 ---
 汽車製造專業媒體 [AMS 在 11 月 10 日整理了一場直播的內容](https://automotivemanufacturingsolutions.com/skills-training/livestream-insights-smart-factories-are-outrunning-the-people-who-run-them/2765285)，來賓是兩位製造現場的主管：一位來自德國汽車零組件大廠 ZF，一位來自德國馬牌輪胎 Continental。
